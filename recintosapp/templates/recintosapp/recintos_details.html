@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Recinto</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}">
+    <script src="{% static 'js/index.js' %}"></script>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="header">
+            <h1>Detalles del Recinto</h1>
+            <button data-url="{% url 'index' %}" onclick="redirectToUrl(this)">Inicio</button>
+        </div>
+        <div class="card">
+            <h2>{{ recinto.name }}</h2>
+            <p><strong>Dirección:</strong> {{ recinto.adress }}</p>
+            <p><strong>Teléfono:</strong> {{ recinto.phone }}</p>
+            <p><strong>Correo Electrónico:</strong> {{ recinto.email }}</p>
+            <p><strong>Deporte:</strong> {{ recinto.get_sport_display }}</p>
+            <p><strong>Horario:</strong> {{ recinto.schedule }}</p>
+       
+            {% if request.user.is_authenticated %}
+                <p><strong>Valoración:</strong>
+                <span>{{ recinto.rating }}</span>
+                <button data-url="{% url 'agregar_valoracion' recinto.id %}" onclick="redirectToUrl(this)">Valorar</button>
+                </p>
+            {% else %}
+                <p><strong>Valoración:</strong> {{ recinto.rating }}</p>
+                <p>Por favor <a href="{% url 'login_user' %}">inicia sesión</a> para valorar.</p>
+            {% endif %}
+        </div>
+        
+        <div class="card">
+            <h2>Comentarios</h2>
+            <ul>
+                {% for comment in comments %}
+                    <li>{{ comment.user.username }} dijo: {{ comment.text }} <br> <small>{{ comment.created_at }}</small></li>
+                {% empty %}
+                    <li>No hay comentarios aún.</li>
+                {% endfor %}
+            </ul>
+
+            {% if request.user.is_authenticated %}
+                <h3>Agregar un comentario</h3>
+                <form method="post" class="comment-form">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <button type="submit">Comentar</button>
+                </form>
+            {% else %}
+                <p>Por favor <a href="{% url 'login_user' %}">inicia sesión</a> para agregar un comentario.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

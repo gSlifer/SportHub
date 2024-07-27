@@ -1,0 +1,33 @@
+<!-- recintosapp/templates/recintos.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Recinto</title>
+    <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}">
+    <script src="{% static 'js/index.js' %}"></script>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="header">
+            <h1>Detalles del Recinto</h1>
+            <button data-url="{% url 'index' %}" onclick="redirectToUrl(this)">Inicio</button>
+        </div>
+        <div class="card">
+            <h2>{{ recinto.name }}</h2>
+            <p><strong>Dirección:</strong> {{ recinto.adress }}</p>
+            <p><strong>Teléfono:</strong> {{ recinto.phone }}</p>
+            <p><strong>Correo Electrónico:</strong> {{ recinto.email }}</p>
+            <p><strong>Deporte:</strong> {{ recinto.get_sport_display }}</p>
+            <p><strong>Horario:</strong> {{ recinto.schedule }}</p>
+            <p><strong>Valoración:</strong> {{ recinto.rating }}</p>
+        </div>
+    </div>
+</body>
+</html>

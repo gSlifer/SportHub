@@ -1,0 +1,28 @@
+<!-- recintosapp/templates/agregar_recinto.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Recinto</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <script src="{% static 'js/index.js' %}"></script>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Agregar Recinto</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="login-button">Agregar</button>
+        </form>
+        <button class="login-button" data-url="{% url 'index' %}" onclick="redirectToUrl(this)">Inicio</button>
+    </div>
+</body>
+</html>
+
+

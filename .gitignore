@@ -1,0 +1,7 @@
+.venv/
+venv/
+myvenv/
+
+db.sqlite3
+recintosapp/migrations/00*.py
+**/__pycache__/
